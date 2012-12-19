@@ -1,5 +1,7 @@
 require "simple-server/version"
 
+require 'argparser'
+
 module SimpleServer
-    # Your code goes here...
+    
 end
