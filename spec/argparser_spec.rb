@@ -35,5 +35,21 @@ module SimpleServer
       ArgumentParser.config.port.should == 1200
       expect{ArgumentParser.parse(["--port","2200"])}.to raise_error ConfigurationAssignedTwice
     end
+
+    it "rasie error if we try set incorrect ip" do 
+      expect{ArgumentParser.parse(["-p","1000","--interface","666.666.666.666"])}
+        .to raise_error(SocketError)
+    end
+
+    it "can print configuration" do
+      ArgumentParser.parse(["-p","1200","-i","192.168.1.1"])
+      ArgumentParser.dump.should =~ /1200/
+      ArgumentParser.dump.should =~ /192\.168\.1\.1/
+    end
+
+    it "got default interface for 0.0.0.0" do
+      ArgumentParser.parse(["-p","1200"])
+      ArgumentParser.config.interface.ip_address.should == '0.0.0.0'
+    end
   end
 end

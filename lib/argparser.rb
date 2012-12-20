@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'optparse'
 require 'ostruct'
+require 'socket'
 
 module SimpleServer
   class ConfigurationAssignedTwice < StandardError
@@ -14,8 +15,14 @@ module SimpleServer
       @@config
     end
 
+    def config
+      @@config
+    end
+
     def self.parse(args)
+      @@config.interface = Addrinfo.ip('0.0.0.0')
       get_parser.parse!(args)
+      throw "Port jest wymagany" unless @@set.include?(:port)
     end
 
     def self.clean
@@ -36,9 +43,13 @@ module SimpleServer
         end
 
         opt.on("-i","--interface [interface]") do |interface|
-          config.interface = interface
+          config.interface = Addrinfo.ip(interface)
         end
       end
+    end
+
+    def self.dump
+      "port #{@@config.port if @@config.port} interface #{@@config.interface.ip_address if @@config.interface}"
     end
   end
 end

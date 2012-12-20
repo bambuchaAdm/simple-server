@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = SimpleServer::VERSION
   gem.authors       = ["Łukasz Dubiel"]
   gem.email         = ["bambucha14@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = "Simple server for operation system subject"
+  gem.summary       = "Only for get good raiting on university"
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)

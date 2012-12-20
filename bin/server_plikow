@@ -1,0 +1,7 @@
+#!/bin/env ruby
+
+require 'simple-server'
+require 'argparser'
+
+SimpleServer::ArgumentParser.parse(ARGV)
+SimpleServer::ArgumentParser.dump
