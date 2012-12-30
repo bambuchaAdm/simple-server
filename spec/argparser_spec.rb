@@ -30,15 +30,21 @@ module SimpleServer
       output.should =~ /--interface/
     end
 
+    it "return config after correct parsing argument" do
+      config = ArgumentParser.parse(["--port","1200","--interface","0.0.0.0"])
+      config.port.should == 1200
+      config.interface.should == '0.0.0.0'
+    end
+
     it "raise error if we try override arguements" do 
       ArgumentParser.parse(["--port","1200"])
       ArgumentParser.config.port.should == 1200
-      expect{ArgumentParser.parse(["--port","2200"])}.to raise_error ConfigurationAssignedTwice
+      expect{ArgumentParser.parse(["--port","2200"])}.to raise_error ConfigurationError
     end
 
     it "rasie error if we try set incorrect ip" do 
       expect{ArgumentParser.parse(["-p","1000","--interface","666.666.666.666"])}
-        .to raise_error(SocketError)
+        .to raise_error(ConfigurationError)
     end
 
     it "can print configuration" do

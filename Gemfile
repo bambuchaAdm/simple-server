@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'ffi'
-gem 'process_shared'
 
 group :development do
   gem 'rake'
